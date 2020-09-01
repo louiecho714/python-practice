@@ -10,5 +10,8 @@ engine = create_engine("postgresql+psycopg2://postgres:postgres@127.0.1:5432/my_
                         pool_recycle=7200,pool_timeout=30)
 
 
-Base.metadata.create_all(engine)
-myclass.create(bind=engine)
+#Base.metadata.create_all(engine)
+#myclass.create(bind=engine)
+
+myclass.drop(bind=engine)
+Base.metadata.drop_all(engine)
