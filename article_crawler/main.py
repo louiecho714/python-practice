@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import pymongo
-import datetime
+from datetime import datetime 
 
 # 財訊網站
 # https://www.wealth.com.tw/
@@ -11,6 +11,7 @@ import datetime
 
 targetHome="https://www.wealth.com.tw"
 initNum=0
+sartTime=datetime.now()
 
 def getHomeCategory(targetHome):
     
@@ -162,14 +163,15 @@ def handleArticleInCategoryPage(client,targetHome,articleLinks):
     for articleLink in articleLinks :
         #檢查db url 是否有資料，沒資料在抓取
         global initNum
+        global sartTime
         initNum=initNum+1
         dbData=getArticleInDb(client,articleLink)
         if dbData==None:
             article=getArticleFromWeb(client,articleLink)
             saveArticle(client,article)
-            print("("+str(initNum)+")had handled : "+articleLink)
+            print("("+str(initNum)+")had handled : "+articleLink+" [ "+sartTime.strftime("%H:%M:%S")+" ~ "+datetime.now().strftime("%H:%M:%S")+" ]")
         else:
-            print("("+str(initNum)+")not handle : "+articleLink)    
+            print("("+str(initNum)+")not handle : "+articleLink+" [ "+sartTime.strftime("%H:%M:%S")+" ~ "+datetime.now().strftime("%H:%M:%S")+" ]")    
 
 def main():
     categorylinks=getHomeCategory(targetHome)
