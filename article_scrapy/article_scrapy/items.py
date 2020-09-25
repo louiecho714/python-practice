@@ -6,7 +6,10 @@
 import scrapy
 
 
-class BeingItem(scrapy.Item):
+class ArticleScrapyItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    _id = scrapy.Field()
+    title = scrapy.Field()
+    author = scrapy.Field()
+    publishDate = scrapy.Field()
+    content = scrapy.Field()

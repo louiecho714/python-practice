@@ -1,4 +1,4 @@
-# Scrapy settings for article_use_scrapy project
+# Scrapy settings for article_scrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,17 +7,17 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'article_use_scrapy'
+BOT_NAME = 'article_scrapy'
 
-SPIDER_MODULES = ['article_use_scrapy.spiders']
-NEWSPIDER_MODULE = 'article_use_scrapy.spiders'
+SPIDER_MODULES = ['article_scrapy.spiders']
+NEWSPIDER_MODULE = 'article_scrapy.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'article_use_scrapy (+http://www.yourdomain.com)'
+#USER_AGENT = 'article_scrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -37,22 +37,21 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  'USER-AGENT':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36",
-}
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'article_use_scrapy.middlewares.ArticleUseScrapySpiderMiddleware': 543,
+#    'article_scrapy.middlewares.ArticleScrapySpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'article_use_scrapy.middlewares.ArticleUseScrapyDownloaderMiddleware': 543,
+#    'article_scrapy.middlewares.ArticleScrapyDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -64,7 +63,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'article_use_scrapy.pipelines.ArticleUseScrapyPipeline': 300,
+   'article_scrapy.pipelines.ArticleScrapyPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -87,3 +86,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+MONGO_URI = "127.0.0.1"
+MONGO_DATABASE = "my_test_data"
