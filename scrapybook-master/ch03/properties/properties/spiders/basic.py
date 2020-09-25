@@ -16,13 +16,13 @@ class BasicSpider(scrapy.Spider):
 
     # Start on a property page
     start_urls = (
-        'http://web:9312/properties/property_000000.html',
+        'http://127.0.0.1:9312/properties/property_000000.html',
     )
 
     def parse(self, response):
         """ This function parses a property page.
 
-        @url http://web:9312/properties/property_000000.html
+        @url http://127.0.0.1:9312/properties/property_000000.html
         @returns items 1
         @scrapes title price description address image_urls
         @scrapes url project spider server date
