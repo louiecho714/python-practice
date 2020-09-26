@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 import pymongo
 
 class ArticleScrapyPipeline:
-    collection_name = 'articles'
+    collection_name = 'articles_new'
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
@@ -19,7 +19,7 @@ class ArticleScrapyPipeline:
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items')#my_test_data
+            mongo_db=crawler.settings.get('MONGO_DATABASE')#my_test_data
         )
 
     def open_spider(self, spider):
@@ -30,5 +30,22 @@ class ArticleScrapyPipeline:
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(ItemAdapter(item).asdict())
+        
+        data={
+            "_id":item["url"][0],
+            "url":item["url"][0],
+            "content":item["content"][0],
+            "author":item["author"][0],
+            "date":item["date"][0],
+            "title":item["title"][0],
+            "date":item["date"][0],
+            "publishDate":item["publishDate"][0],
+            "project":item["project"][0],
+            "spider":item["spider"][0],
+            "server":item["server"][0],
+            "date":item["date"][0],
+            }
+        
+        self.db[self.collection_name].insert(data)
+
         return item
