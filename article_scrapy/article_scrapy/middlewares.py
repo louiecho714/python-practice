@@ -7,7 +7,9 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
-
+from scrapy.http import HtmlResponse
+import redis
+import re
 
 class ArticleScrapySpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -101,3 +103,25 @@ class ArticleScrapyDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+
+class RedisMiddleware:
+    def __init__(self):
+        self.redis_db = redis.Redis(host='127.0.0.1', port=6379,password='mypassword', db=0)
+        self.redis_data_dict = 'keys'
+
+    def process_request(self, request, spider):
+        
+        #針對文章內容url處理，若有處理過不再做request example: www.wealth.com.tw/home/articles/27689
+        if re.search(r"www.wealth.com.tw\/home\/articles\/\d",request.url)!=None:
+            # 判斷Redis中是否有URL
+            if self.redis_db.hexists(self.redis_data_dict, request.url):
+                # 若存在，拋出500 error
+                return HtmlResponse(url=request.url, status=500, request=request)
+            else:
+                # 不存在，將url寫入Redis
+                self.redis_db.hset(self.redis_data_dict, request.url, 0)
+                return None        
+
+                
