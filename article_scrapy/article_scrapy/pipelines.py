@@ -7,9 +7,12 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import pymongo
+from datetime import datetime
+
+
 
 class ArticleScrapyPipeline:
-    collection_name = 'articles_new'
+    collection_name = 'articles'
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
@@ -32,14 +35,13 @@ class ArticleScrapyPipeline:
     def process_item(self, item, spider):
         
         data={
-            "_id":item["url"][0],
             "url":item["url"][0],
             "content":item["content"][0],
             "author":item["author"][0],
             "date":item["date"][0],
             "title":item["title"][0],
             "date":item["date"][0],
-            "publishDate":item["publishDate"][0],
+            "publishDate":datetime.strptime(item["publishDate"][0], "%Y-%m-%d"),
             "project":item["project"][0],
             "spider":item["spider"][0],
             "server":item["server"][0],

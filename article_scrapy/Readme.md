@@ -44,3 +44,14 @@ pip install -r requirements.txt
 
 #利用scrapydweb做管理
 pip3 instal scrapydweb
+
+
+# redis login
+
+* rdcli -h 127.0.0.1 -p 6379 -a 'mypassword'
+
+# hash
+```
+del keys 刪除keys
+Hgetall keys 取得hash格式中的 keys 所有資料
+```
