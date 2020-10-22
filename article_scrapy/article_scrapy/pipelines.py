@@ -46,6 +46,7 @@ class ArticleScrapyPipeline:
             "spider":item["spider"][0],
             "server":item["server"][0],
             "date":item["date"][0],
+            "status":"NEW",
             }
         
         self.db[self.collection_name].insert(data)
