@@ -8,7 +8,7 @@
 from itemadapter import ItemAdapter
 import pymongo
 from datetime import datetime
-
+import re
 
 
 class ArticleScrapyPipeline:
@@ -34,6 +34,9 @@ class ArticleScrapyPipeline:
 
     def process_item(self, item, spider):
         
+        category=re.findall(r">\s[\u4e00-\u9fa5]+\s",item["category"][0])[0]
+        category=category.replace("> ", "").replace(" ", "").replace("\n", "")
+
         data={
             "url":item["url"][0],
             "content":item["content"][0],
@@ -47,6 +50,7 @@ class ArticleScrapyPipeline:
             "server":item["server"][0],
             "date":item["date"][0],
             "status":"NEW",
+            "originalCategory":category,
             }
         
         self.db[self.collection_name].insert(data)

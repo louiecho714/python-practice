@@ -38,6 +38,8 @@ class ArticlespiderSpider(CrawlSpider):
         l.add_xpath('author','//div[@class="entry-header"]/p[1]/text()[2]',MapCompose(lambda i: i.replace('作者: ', '')))
 
         l.add_xpath('publishDate', '//div[@class="entry-header"]/p[1]/text()[1]')
+        l.add_xpath('category','//div[@class="posts-group"]/span[@class="ui-title-inner__inner"]/text()')
+
 
         # Housekeeping fields
         l.add_value('url', response.url)

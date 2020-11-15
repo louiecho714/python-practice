@@ -13,6 +13,7 @@ class ArticleScrapyItem(scrapy.Item):
     author = scrapy.Field()
     publishDate = scrapy.Field()
     content = scrapy.Field()
+    category = scrapy.Field()
 
     #系統狀況
     url= scrapy.Field()
